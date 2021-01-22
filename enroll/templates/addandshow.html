@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content  %}
+
+
+<div class="row">
+<div class="col-sm-4">
+<h2 class="text-center alert alert-info">Add New Student</h2>
+{% comment %} 
+{% if msg %}
+<div class="alert alert-success ">
+{{msg}}
+</div>
+{% endif %} {% endcomment %}
+<form action="" method="POST">
+  {% csrf_token %}
+  <div class="mb-3">
+    <label for="name" class="form-label">Name</label>
+    <input type="text" class="form-control" id="name" name="name"  required  aria-describedby="emailHelp">
+    </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Email</label>
+    <input type="email" class="form-control" id="email" required name="email">
+  </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">Password</label>
+    <input type="password" class="form-control" id="password" required name="password">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+
+
+
+<div class="col-sm-7 offset-1">
+<h4 class="alert alert-info text-center">Show Student Information</h4>
+
+{% if all_user %}
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Password</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for i in all_user %}
+    <tr>
+      <th scope="row">{{i.id}}</th>
+      <td>{{i.name}}</td>
+      <td>{{i.email}}</td>
+      <td>{{i.password}}</td>
+      <td>
+      
+      {% comment %} this is a update url {% endcomment %}
+      <a href="{% url 'update' i.id %}"  class="btn btn-success btn-sm">Edit</a>
+      
+      
+       {% comment %} this is delete form {% endcomment %}
+      <form action="{% url 'delete' i.id %}" method="post" class="d-inline">
+      {% csrf_token %}
+      <input type="submit" class="btn btn-warning" value="delete">
+ 
+      </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% else %}
+<h4 class="alert alert-warning text-center">No Reacords</h4>
+
+{% endif %}
+</div>
+</div>
+{% endblock content %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content  %} 
+
+
+<div class="row">
+<div class="col-sm-4 offset-4">
+<h2 class="text-center alert alert-info">Update  Student</h2>
+<form action="" method="POST">
+  {% csrf_token %}
+  <div class="mb-3">
+    <label for="name" class="form-label">Name</label>
+    <input type="text" class="form-control" id="name" name="name" value="{{get_update_user.name}}"  aria-describedby="emailHelp">
+    </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Email</label>
+    <input type="email" class="form-control" id="email" value="{{get_update_user.email}}" required name="email">
+  </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">Password</label>
+    <input type="password" class="form-control" id="password" value="{{get_update_user.password}}" required name="password">
+  </div>
+  <input type="submit" class="btn btn-success" value="Update">
+  <a href="{% url 'add_show' %}" class="btn btn-warning">Back to home</a>
+</form>
+</div>
+
+
+
+
+
+{% endblock content %}
